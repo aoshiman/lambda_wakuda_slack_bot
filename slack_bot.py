@@ -6,7 +6,6 @@ import random
 from random import SystemRandom
 from string import ascii_lowercase, digits
 import boto3
-import slackweb
 from settings import config as cfg
 
 
@@ -25,11 +24,6 @@ def get_image_list(bucket, key):
     obj = obj.get()
     body = obj['Body'].read()
     return (body.decode('utf-8').split(','))
-
-
-def post_image(image):
-    slack = slackweb.Slack(url=cfg['INCOMING_WEBHOOKS'])
-    slack.notify(text=image)
 
 
 def lambda_handler(event, context):
